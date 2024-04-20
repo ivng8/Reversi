@@ -1,0 +1,72 @@
+README for Reversi Game
+Overview:
+
+The Reversi game is a classic two-player board game where players take turns placing their colored discs on a hexagonal grid.
+The objective is to have the majority of the discs flipped to display your color when the last playable move is completed.
+This codebase provides an implementation of the game with both a model representing the game state and logic, as well as a textual view for visualization.
+
+Assumptions:
+
+    The board is hexagonal, with the ability to scale to different sizes.
+    The game is played between two players - black and white.
+    The code is designed with the MVC pattern in mind, though the actual separation might differ slightly.
+
+Quick Start:
+
+To start a game with a board of radius Int in Main:
+
+Reversi game = new Reversi(Int);
+ReversiTextualView view = new ReversiTextualView(game);
+System.out.println(view.toString());
+
+This will initialize the game and display the initial game state with your given radius.
+
+Use placeTile(CubicPosn pos, DiskState color) to place a specific tile.
+
+Key Components:
+
+    Model (Reversi.java):
+        Represents the game state including the board and the current turn.
+        Contains logic for gameplay like checking valid moves, flipping discs, etc.
+    View (ReversiTextualView.java and TextView.java):
+        Provides a textual representation of the game state.
+        Offers an insight into the board layout and the discs placed.
+    Controller (ReversiController.java and ReversiTextualController.java):
+        Drives the game flow by taking user inputs, updating the model, and refreshing the view.
+        Manages interactions between the model and the view.
+
+Helper Classes:
+
+    CubicPosn (CubicPosn.java):
+        Represents a position on the hexagonal grid using cube coordinates.
+        Offers methods for position arithmetic and conversions.
+    DiskState (DiskState.java):
+        Enum type representing the state of a disc - either black, white, or empty.
+
+Code Map:
+
+    Model: Located primarily in Reversi.java, localized in the Model directory.
+    View: Located in ReversiTextualView.java and TextView.java, localized in the View directory.
+    Controller: Logic for driving the game can be found in ReversiController.java and ReversiTextualController.java, localized in the Controller directory.
+    Helpers: Additional classes like CubicPosn for positional arithmetic and DiskState for representing disc states are included to assist the main game logic, localized in the Model directory.
+
+Design Choices:
+
+    Hexagonal Grid with Cube Coordinates (CubicPosn.java):
+        We chose cube coordinates to represent positions on the hexagonal grid. This choice simplifies arithmetic operations,
+        such as distance calculations and neighbor determinations, which are important for game logic.
+        This representation also provides a canonical coordinate for each hex, streamlining many game actions.
+        Our hexagaonal grid Coordinates follows the cubic system given to us on the website to a T (Although in our code, x = q, y = r, and z = s)
+
+    State Representation (DiskState.java):
+        By using an Enum to represent the state of each disc (black, white, or empty), we've ensured type safety, clarity, and reduced the chance of invalid states.
+
+Design Considerations for Future Implementation:
+
+    Player Interface:
+        The current design is architected with the potential integration of both human and AI players in mind. In the future,
+        by defining a player interface, we can seamlessly introduce various player types without major code changes.
+
+    Controller:
+        Our controllers (ReversiController.java and ReversiTextualController.java) are poised for future upgrades.
+        Wether it's integrating advanced player input mechanisms, AI-driven moves, the foundational structure is already in place.
